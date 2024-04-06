@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { Canvas, useFrame } from '@react-three/fiber';
+import logo from '../public/logo192.png';
 import Header from './components/Header';
+import Effect from './components/Effect';
 
 export default function App() {
     // Landing
-    const [landed, setLanded] = useState<boolean>(true); //false
+    const [landed, setLanded] = useState<boolean>(false);
     useEffect(() => {
         setLanded(true);
     }, []);
     useEffect(() => {
         setTimeout(() => {
             setLanded(false);
-        }, 0); //1500
+        }, 1500);
     }, [landed]);
 
-    return (<Container>
+    return (<Background>
+    <Container>
             { landed ? 
             <Landing>
                 <LandingTitle>Aria Lopez</LandingTitle>
@@ -26,8 +30,19 @@ export default function App() {
                     </InnerContainer>
                 </ContentContainer>
             )}
-        </Container>); 
+        </Container>
+            <Effect />
+        </Background>); 
 }
+const fadeIn = keyframes`
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+`;
+
+const Background = styled.div`
+    height: 100vh;
+    animation: ${fadeIn} 2s liner;
+`;
 
 const Container = styled.div`
     display: flex;
@@ -36,6 +51,8 @@ const Container = styled.div`
     width: 100vw;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    z-index: 999;
 `;
 
 // Landing text + fade out
@@ -65,10 +82,6 @@ const LandingSubTitle = styled.h3`
 `;
 
 // Main content container + options
-const fadeIn = keyframes`
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-`;
 
 const ContentContainer = styled.div`
     display: flex;
@@ -84,4 +97,5 @@ const InnerContainer = styled.div`
     height: 90%;
     width: 90%;
     border: 1px solid whitesmoke;
+    background: rgba(96, 151, 240, 0.1);
 `;
