@@ -1,17 +1,45 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function Header() {
+interface HeaderProps {
+    selectedContent: 'home' | 'expierence' | 'projects' | 'contact';
+    setContent: Function;
+}
+
+export default function Header({ selectedContent, setContent }: HeaderProps) {
     return (<Container>
         <NameContainer>
             <Name>Aria Lopez</Name>
             <Title>Fullstack Engineer</Title>
         </NameContainer>
         <NavContainer>
-            <NavItem>Home</NavItem>
-            <NavItem>Expierence</NavItem>
-            <NavItem>Projects</NavItem>
-            <NavItem>Contact</NavItem>
+            <NavItem 
+                selected={selectedContent === 'home'}
+                onClick={() => setContent('home')}
+            >
+                Home
+            </NavItem>
+
+            <NavItem 
+                selected={selectedContent === 'expierence'}
+                onClick={() => setContent('expierence')}
+            >
+                Expierence
+            </NavItem>
+
+            <NavItem 
+                selected={selectedContent === 'projects'}
+                onClick={() => setContent('projects')}
+            >
+                Projects
+            </NavItem>
+
+            <NavItem 
+                selected={selectedContent === 'contact'}
+                onClick={() => setContent('contact')}
+            >
+                Contact
+            </NavItem>
         </NavContainer>
     </Container>);
 }
@@ -46,9 +74,9 @@ const NavContainer = styled.div`
     margin-top: 10%;
 `;
 
-const NavItem = styled.button`
+const NavItem = styled.button<{ selected: boolean }>`
     background: transparent;
-    color: whitesmoke;
+    color: ${props => props.selected ? '#edab26' : 'whitesmoke'};
     font-family: inherit;
     border: transparent;
     font-size: 14px;

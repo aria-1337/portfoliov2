@@ -17,6 +17,9 @@ export default function App() {
         }, 1500);
     }, [landed]);
 
+    // Basic page logic (single page no routes)
+    const [content, setContent] = useState<'home' | 'expierence' | 'projects' | 'contact'>('home');
+
     return (<Background>
     <Container>
             { landed ? 
@@ -26,7 +29,7 @@ export default function App() {
             </Landing> : (
                 <ContentContainer>
                     <InnerContainer>
-                        <Header />
+                        <Header selectedContent={content} setContent={setContent}/>
                     </InnerContainer>
                 </ContentContainer>
             )}
